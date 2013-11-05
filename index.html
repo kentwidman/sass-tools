@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Color Me</title>
+        <title>Sass Color Converter</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -14,43 +14,36 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/stylesheet.css"/>
     </head>
     <body>
-        <div class="row">
-            <div id="logo" class="column">
-                <div class="arrow-up"></div>
-                <div class="arrow-down"></div>
-            </div>
+
+    <svg version="1.1" id="triangles" class="triangles" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" xml:space="preserve">
+    <polygon id="tri1" fill="#F26531" points="0,434 697,6 697,631"/>
+    <polygon id="tri2" fill="#1A1A1A" points="162,800 316,46 697,514 697,800"/>
+    </svg>
+
+    <div class="js-color-form color-form">
+        <div class="color-row">
+            <h1>SASS COLOR CONVERTER</h1>
+            <input type="text" id="color1" name="color1" class="colorpicker" value="" placeholder="start #color" maxlength="7"/>
+            <input type="text" id="color2" name="color2" class="colorpicker" value="" placeholder="end #color" maxlength="7"/>
         </div>
-        <div class="row color-row">
-            <div class="column">
-                <label for="color1">From</label>
-                <input type="text" id="color1" name="color1" class="colorpicker" value="" placeholder="#color" maxlength="7"/>
-            </div>
+        <div class="color-row">
+            <h2>Sass</h2>
+            <p id="sass-output" class="sass-output"></p>
         </div>
-        <div class="row color-row">
-            <div class="column">
-                <label for="color2">To</label>
-                <input type="text" id="color2" name="color2" class="colorpicker" value="" placeholder="#color" maxlength="7"/>
-            </div>
-        </div>
-        <div class="row color-row">
-            <div class="column">
-                <label>Sass</label>
-                <textarea id="sass-output" class="sass-output" readonly="readonly"></textarea>
-            </div>
-        </div>
+    </div>
 
 
 
 
-        <!--[if lt IE 7]>
+
+        <!--[if lt IE 9]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
- 
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 

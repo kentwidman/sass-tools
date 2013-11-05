@@ -94,8 +94,31 @@ textarea {
    ========================================================================== */
 
 html {
-	background-color: #333333;
-	color: #eeeeee;
+	height: 100%;
+	width: 100%;
+	background-color: #f8efe7;
+	color: #bcb7b3;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	font-family: 'league_gothicCnRg', Helvetica, Arial, sans-serif;
+	font-weight: 400;
+}
+
+h1 {
+	font-family: 'league_gothicCnRg', Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	line-height: 0.9em;
+	font-size: 11em;
+}
+
+.triangles {
+	height: 100%;
+	width: 100%;
 }
 
 .color-preview {
@@ -103,21 +126,9 @@ html {
 	width: 30px;
 }
 
-.column {
-	width: 250px;
-	margin: 0 auto;
-}
-
-.row.color-row {
-	margin-bottom: 3em;
-}
-
 .row {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0 auto;
   *zoom: 1;
 }
 .row:before, .row:after {
@@ -128,16 +139,19 @@ html {
 	clear: both;
 }
 
+.color-row {
+	margin-left: 25%;
+}
+
 input {
 	width: 100%;
 	font-size: 3em;
 	background: none;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: 5px solid #eeeeee;
+	border: 0;
+	border-bottom: 5px solid #bcb7b3;
 	border-radius: 0;
-	color: #eeeeee;
+	color: #a39f9b;
+	margin-bottom: 25px;
 }
 
 input:focus{
@@ -148,13 +162,10 @@ textarea {
 	width: 100%;
 	font-size: 0.8em;
 	background: none;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	border-bottom: none;
+	border: none;
 	border-radius: 0;
-	color: #eeeeee;
-	resize: none; 
+	color: #bcb7b3;
+	resize: none;
 }
 
 ::selection {
@@ -166,22 +177,27 @@ textarea {
 	text-shadow: none;
 }
 
-.arrow-up {
-	width: 0; 
-	height: 0; 
-	border-left: 125px solid transparent;
-	border-right: 125px solid transparent;
-	border-bottom: 125px solid black;
+.sass-output{
+	font-size: 24px;
 }
 
-.arrow-down {
-	width: 0; 
-	height: 0; 
-	border-left: 125px solid transparent;
-	border-right: 125px solid transparent;
-	border-top: 125px solid #f00;
+.color-form {
+	position: absolute;
 }
 
+::-webkit-input-placeholder { color: #bcb7b3; }
+:-moz-placeholder { color: #bcb7b3; }
+::-moz-placeholder { color: #bcb7b3; }
+:-ms-input-placeholder { color: #bcb7b3; }
+
+.left-side {
+	top: 16%;
+	width: 40%;
+}
+
+.upper {
+
+}
 
 
 

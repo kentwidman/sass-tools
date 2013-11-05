@@ -87,3 +87,108 @@ $(document).ready(function(){
 
 	});
 });
+
+function stringToArray(str){
+	var points_str = str.split(" ");
+	var points = [],
+			i,
+			j;
+
+	for (i=0; i < points_str.length; i++){
+		points.push(points_str[i].split(","));
+	}
+
+	for (i=0; i < points.length; i++){
+		for (j=0; j < 2; j++){
+			points[i][j] = parseInt(points[i][j], 10);
+		}
+	}
+	return points;
+}
+
+
+function arrayToString(arr){
+	var points_str = "";
+
+	for (var i=0; i < arr.length; i++) {
+		points_str += arr[i][0].toString() + "," + arr[i][1].toString() + " ";
+	}
+
+	return points_str;
+}
+
+/* resize */
+$(document).ready(function() {
+	var $window = $(window),
+			tri1 = $('#tri1'),
+			tri2 = $('#tri2'),
+			tri1_points_str = tri1.attr('points'),
+			tri2_points_str = tri2.attr('points');
+
+			tri1_points = stringToArray(tri1_points_str);
+			tri2_points = stringToArray(tri2_points_str);
+
+
+	$(window).bind("resize",function(){
+
+    var h = $window.height();
+    var w = $window.width();
+
+    //landscape mode
+    if (w > h * 1.1 ) {
+			//triangle 1
+			tri1_points[0][0] = w * 0.47;
+			tri1_points[0][1] = h * (432/803);
+			tri1_points[1][0] = w;
+			tri1_points[1][1] = h * (8/803);
+			tri1_points[2][0] = w;
+			tri1_points[2][1] = h * 0.8;
+
+			//triangle 2
+			tri2_points[0][0] = w * 0.6;
+			tri2_points[0][1] = h;
+			tri2_points[1][0] = w * 0.7;
+			tri2_points[1][1] = h * (46/800);
+			tri2_points[2][0] = w;
+			tri2_points[2][1] = h * (514/800);
+			tri2_points[3][0] = w;
+			tri2_points[3][1] = h;
+
+			$('.js-color-form').removeClass('upper').addClass('left-side');
+
+    } else { //portrait mode
+			//triangle 1
+			tri1_points[0][0] = 0;
+			tri1_points[0][1] = h * 0.45;
+			tri1_points[1][0] = w * 0.2;
+			tri1_points[1][1] = h;
+			tri1_points[2][0] = w;
+			tri1_points[2][1] = h;
+
+			//triangle 2
+			tri2_points[0][0] = w;
+			tri2_points[0][1] = h * 0.6;
+			tri2_points[1][0] = w;
+			tri2_points[1][1] = h;
+			tri2_points[2][0] = w;
+			tri2_points[2][1] = h;
+			tri2_points[3][0] = 0;
+			tri2_points[3][1] = h;
+
+			$('.js-color-form').removeClass('left-side').addClass('upper');
+    }
+
+
+    var tri1String = arrayToString(tri1_points),
+				tri2String = arrayToString(tri2_points);
+
+    tri1.attr('points', tri1String);
+    tri2.attr('points', tri2String);
+
+	}).trigger("resize");
+});
+
+
+
+
+
