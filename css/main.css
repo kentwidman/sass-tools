@@ -103,7 +103,7 @@ html {
 body {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	position: relative;
 	font-family: 'league_gothicCnRg', Helvetica, Arial, sans-serif;
 	font-weight: 400;
@@ -114,11 +114,13 @@ h1 {
 	font-weight: normal;
 	line-height: 0.9em;
 	font-size: 11em;
+	margin: 0;
 }
 
 .triangles {
 	height: 100%;
 	width: 100%;
+	position: fixed;
 }
 
 .color-preview {
@@ -178,7 +180,7 @@ textarea {
 }
 
 .sass-output{
-	font-size: 24px;
+	font-size: 2em;
 }
 
 .color-form {
