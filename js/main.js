@@ -91,8 +91,19 @@ function arrayToString(arr){
 	for (var i=0; i < arr.length; i++) {
 		points_str += arr[i][0].toString() + "," + arr[i][1].toString() + " ";
 	}
-
 	return points_str;
+}
+
+function cleanStr(arr){
+	var out = arr;
+	out = out.replace(/^\s+|\s+$/g, '');
+	out = out.replace("#","");
+	out = out.toLowerCase();
+	return out;
+}
+
+function is_valid_color(color){
+	return /^[a-f0-9]{3}$|^[a-f0-9]{6}$/i.test(color);
 }
 
 /* resize */
@@ -104,25 +115,32 @@ $(document).ready(function() {
 		tri1_points_str = tri1.attr('points'),
 		tri2_points_str = tri2.attr('points'),
 		tri1_color = tri1.attr('fill'),
-		tri2_color = tri2.attr('fill');
+		tri2_color = tri2.attr('fill'),
+		tri1_points = stringToArray(tri1_points_str),
+		tri2_points = stringToArray(tri2_points_str),
+		tri1_def_color = 'F26531',
+		tri2_def_color = '1A1A1A';
 
-		tri1_points = stringToArray(tri1_points_str);
-		tri2_points = stringToArray(tri2_points_str);
 
-	$('.colorpicker').on('change', function(){
+	$('#color1, #color2').on('input', function(){
 		var $this = $(this);
 			id = $this.attr('id'),
-			val = $this.val();
-			colors[id] = Color(val);
+			val = cleanStr($this.val());
 
-		if (id === 'color1'){
-			tri1.attr('fill', val);
-		} else if (id === 'color2') {
-			tri2.attr('fill', val);
+		if (is_valid_color(val)){
+			colors[id] = Color('#'+cleanStr(val));
+			if (id === 'color1') tri1.attr('fill', '#'+val);
+			else if (id === 'color2') tri2.attr('fill', '#'+val);
+		} else {
+			delete colors[id];
+			if (id === 'color1') tri1.attr('fill', '#'+tri1_def_color);
+			else if (id === 'color2') tri2.attr('fill', '#'+tri2_def_color);
 		}
 
 		if (colors.color1 && colors.color2){
 			$('#sass-output').html(displayColors(colors.color1, colors.color2));
+		} else {
+			$('#sass-output').html('');
 		}
 	});
 
