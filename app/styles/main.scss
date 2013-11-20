@@ -1,4 +1,4 @@
-@import "../bower_components/normalize-css/normalize.css";
+@import "normalize-css/normalize.css";
 @import "hml5bp_top";
 
 
@@ -22,7 +22,7 @@ h1 {
     margin-bottom: 2.75em;
     padding-bottom: 51%;
     height: 0;
-    background-image: url('../img/sass-color-converter.svg');
+    background-image: url('../images/sass-color-converter.svg');
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -137,7 +137,7 @@ textarea {
 .upper h1{
     margin: 0.8em auto;
     padding-bottom: 12%;
-    background-image: url('../img/sass-color-converter-upper.svg');
+    background-image: url('../images/sass-color-converter-upper.svg');
 }
 
 .upper .color-form {

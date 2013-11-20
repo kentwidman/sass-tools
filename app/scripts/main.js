@@ -1,3 +1,4 @@
+/*global net */
 var app = {
 	contants: {
 		hthreshold: 0.001,
@@ -17,7 +18,6 @@ function displayColors(color1, color2){
 
 	//console.log(color1, color2);
 	var out = color1.toCSS(),
-		count = 0,
 		amount = 0,
 		c1 = {
 			h: color1.getHue(),
@@ -123,32 +123,38 @@ $(document).ready(function() {
 		colors = {},
 		tri1 = $('#tri1'),
 		tri2 = $('#tri2'),
-		tri1_pointsStr = tri1.attr('points'),
-		tri2_pointsStr = tri2.attr('points'),
-		tri1_color = tri1.attr('fill'),
-		tri2_color = tri2.attr('fill'),
-		tri1_points = stringToArray(tri1_pointsStr),
-		tri2_points = stringToArray(tri2_pointsStr),
-		tri1_def_color = 'F26531',
-		tri2_def_color = '1A1A1A';
+		tri1PointsStr = tri1.attr('points'),
+		tri2PointsStr = tri2.attr('points'),
+		//tri1Color = tri1.attr('fill'),
+		//tri2Color = tri2.attr('fill'),
+		tri1Points = stringToArray(tri1PointsStr),
+		tri2Points = stringToArray(tri2PointsStr),
+		tri1DefColor = 'F26531',
+		tri2DefColor = '1A1A1A';
 
 
 	$('#color1, #color2').on('input', function(){
-		var $this = $(this);
+		var $this = $(this),
 			id = $this.attr('id'),
 			val = cleanStr($this.val());
 
 		if (isValidColor(val)){
-			colors[id] = Color('#'+cleanStr(val));
-			if (id === 'color1') tri1.attr('fill', '#'+val);
-			else if (id === 'color2') tri2.attr('fill', '#'+val);
+			colors[id] = new Color('#'+cleanStr(val));
+			if (id === 'color1') {
+				tri1.attr('fill', '#'+val);
+			} else if (id === 'color2') {
+				tri2.attr('fill', '#'+val);
+			}
 		} else {
 			delete colors[id];
-			if (id === 'color1') tri1.attr('fill', '#'+tri1_def_color);
-			else if (id === 'color2') tri2.attr('fill', '#'+tri2_def_color);
+			if (id === 'color1') {
+				tri1.attr('fill', '#'+tri1DefColor);
+			} else if (id === 'color2') {
+				tri2.attr('fill', '#'+tri2DefColor);
+			}
 		}
 
-		if (colors.color1 && colors.color2){
+		if (colors.color1 && colors.color2) {
 			$('#sass-output').html(displayColors(colors.color1, colors.color2));
 		} else {
 			$('#sass-output').html('');
@@ -156,63 +162,63 @@ $(document).ready(function() {
 	});
 
 
-	$(window).bind("resize", function(){
+	$(window).bind('resize', function(){
 
-    var h = $window.height();
-    var w = $window.width();
+	    var h = $window.height();
+	    var w = $window.width();
 
-    //landscape mode
-    if (w > h * 1.1 ) {
-		//triangle 1
-		tri1_points[0][0] = w * 0.47;
-		tri1_points[0][1] = h * (432/803);
-		tri1_points[1][0] = w;
-		tri1_points[1][1] = h * (8/803);
-		tri1_points[2][0] = w;
-		tri1_points[2][1] = h * 0.8;
+	    //landscape mode
+	    if (w > h * 1.1 ) {
+			//triangle 1
+			tri1Points[0][0] = w * 0.47;
+			tri1Points[0][1] = h * (432/803);
+			tri1Points[1][0] = w;
+			tri1Points[1][1] = h * (8/803);
+			tri1Points[2][0] = w;
+			tri1Points[2][1] = h * 0.8;
 
-		//triangle 2
-		tri2_points[0][0] = w * 0.6;
-		tri2_points[0][1] = h;
-		tri2_points[1][0] = w * 0.7;
-		tri2_points[1][1] = h * (46/800);
-		tri2_points[2][0] = w;
-		tri2_points[2][1] = h * (514/800);
-		tri2_points[3][0] = w;
-		tri2_points[3][1] = h;
+			//triangle 2
+			tri2Points[0][0] = w * 0.6;
+			tri2Points[0][1] = h;
+			tri2Points[1][0] = w * 0.7;
+			tri2Points[1][1] = h * (46/800);
+			tri2Points[2][0] = w;
+			tri2Points[2][1] = h * (514/800);
+			tri2Points[3][0] = w;
+			tri2Points[3][1] = h;
 
-		$('.js-color-form').removeClass('upper').addClass('left-side');
+			$('.js-color-form').removeClass('upper').addClass('left-side');
 
-    } else { //portrait mode
-		//triangle 1
-		tri1_points[0][0] = 0;
-		tri1_points[0][1] = h * 0.62;
-		tri1_points[1][0] = w * 0.15;
-		tri1_points[1][1] = h;
-		tri1_points[2][0] = w;
-		tri1_points[2][1] = h;
+	    } else { //portrait mode
+			//triangle 1
+			tri1Points[0][0] = 0;
+			tri1Points[0][1] = h * 0.62;
+			tri1Points[1][0] = w * 0.15;
+			tri1Points[1][1] = h;
+			tri1Points[2][0] = w;
+			tri1Points[2][1] = h;
 
-		//triangle 2
-		tri2_points[0][0] = w;
-		tri2_points[0][1] = h * 0.6;
-		tri2_points[1][0] = w;
-		tri2_points[1][1] = h;
-		tri2_points[2][0] = w;
-		tri2_points[2][1] = h;
-		tri2_points[3][0] = 0;
-		tri2_points[3][1] = h;
+			//triangle 2
+			tri2Points[0][0] = w;
+			tri2Points[0][1] = h * 0.6;
+			tri2Points[1][0] = w;
+			tri2Points[1][1] = h;
+			tri2Points[2][0] = w;
+			tri2Points[2][1] = h;
+			tri2Points[3][0] = 0;
+			tri2Points[3][1] = h;
 
-		$('.js-color-form').removeClass('left-side').addClass('upper');
-    }
+			$('.js-color-form').removeClass('left-side').addClass('upper');
+	    }
 
 
-    var tri1String = arrayToString(tri1_points),
-		tri2String = arrayToString(tri2_points);
+	    var tri1String = arrayToString(tri1Points),
+			tri2String = arrayToString(tri2Points);
 
-    tri1.attr('points', tri1String);
-    tri2.attr('points', tri2String);
+	    tri1.attr('points', tri1String);
+	    tri2.attr('points', tri2String);
 
-	}).trigger("resize");
+	}).trigger('resize');
 });
 
 
