@@ -1,4 +1,5 @@
-@import "../bower_components/normalize-css/normalize.css";
+/*Test*/
+@import "normalize-scss/normalize";
 @import "hml5bp_top";
 
 .browsehappy {
@@ -19,7 +20,6 @@ html {
 body {
     height: 100%;
     width: 100%;
-    /*overflow: hidden;*/
     position: relative;
     font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
 }
@@ -32,9 +32,9 @@ h1 {
     text-align: center;
 }
 
-svg {
-    margin-bottom: 6em;
-}
+// svg {
+//     margin-bottom: 6em;
+// }
 
 .triangles {
     height: 100%;
