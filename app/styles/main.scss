@@ -1,0 +1,150 @@
+@import "../bower_components/normalize-css/normalize.css";
+@import "hml5bp_top";
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+html {
+    height: 100%;
+    width: 100%;
+    background-color: #f8efe7;
+    color: #bcb7b3;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    /*overflow: hidden;*/
+    position: relative;
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    font-family: 'league_gothicregular', Helvetica, Arial, sans-serif;
+    line-height: 0.9em;
+    font-size: 11em;
+    letter-spacing: 0.002em;
+    text-align: center;
+}
+
+svg {
+    margin-bottom: 6em;
+}
+
+.triangles {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+.color-preview {
+    height: 30px;
+    width: 30px;
+}
+
+.row {
+  width: 100%;
+  margin: 0 auto;
+  *zoom: 1;
+}
+.row:before, .row:after {
+    content: " ";
+    display: table;
+}
+.row:after {
+    clear: both;
+}
+
+.color-row {
+    margin-left: 12%;
+}
+
+.color-row h2 {
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+
+input {
+    width: 100%;
+    font-size: 3em;
+    background: none;
+    border: 0;
+    border-bottom: 5px solid #bcb7b3;
+    border-radius: 0;
+    color: #a39f9b;
+    margin-bottom: 25px;
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+
+input:focus{
+    outline: none;
+}
+
+textarea {
+    width: 100%;
+    font-size: 0.8em;
+    background: none;
+    border: none;
+    border-radius: 0;
+    color: #bcb7b3;
+    resize: none;
+}
+
+::selection {
+    background: #333333;
+    text-shadow: none;
+}
+::-moz-selection {
+    background: #333333;
+    text-shadow: none;
+}
+
+.sass-output{
+    display: inline;
+    font-size: 2em;
+    word-wrap: break-word;
+}
+
+.dark {
+    color: #a39f9b;
+}
+
+.color-form {
+    position: absolute;
+}
+
+.output {
+    margin-top: 30px;
+}
+
+::-webkit-input-placeholder {
+    color: #bcb7b3;
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+:-moz-placeholder {
+    color: #bcb7b3;
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+::-moz-placeholder {
+    color: #bcb7b3;
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+:-ms-input-placeholder {
+    color: #bcb7b3;
+    font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+
+.left-side {
+    top: 10%;
+    width: 40%;
+}
+
+.upper {
+
+}
+
+@import "hml5bp_bottom";
