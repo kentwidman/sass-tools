@@ -42,11 +42,11 @@ function displayColors(color1, color2){
 		if (diff.s > 0){
 			amount = (diff.s ) * 100;
 			amount = roundFraction(amount, 1);
-			out = 'saturate(' + out + ', ' + amount + ')';
+			out = 'saturate(' + out + ', ' + amount + '%)';
 		} else {
 			amount = (-diff.s) * 100;
 			amount = roundFraction(amount, 1);
-			out = 'desaturate(' + out + ', ' + amount + ')';
+			out = 'desaturate(' + out + ', ' + amount + '%)';
 		}
 	}
 
@@ -54,11 +54,11 @@ function displayColors(color1, color2){
 		if (diff.l > 0){
 			amount = (diff.l) * 100;
 			amount = roundFraction(amount, 1);
-			out = 'lighten(' + out + ', ' + amount + ')';
+			out = 'lighten(' + out + ', ' + amount + '%)';
 		} else {
 			amount = (-diff.l) * 100;
 			amount = roundFraction(amount, 1);
-			out = 'darken(' + out + ', ' + amount + ')';
+			out = 'darken(' + out + ', ' + amount + '%)';
 		}
 	}
 

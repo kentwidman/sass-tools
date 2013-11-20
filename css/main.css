@@ -105,16 +105,19 @@ body {
 	width: 100%;
 	/*overflow: hidden;*/
 	position: relative;
-	font-family: 'league_gothicCnRg', Helvetica, Arial, sans-serif;
-	font-weight: 400;
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
 }
 
 h1 {
-	font-family: 'league_gothicCnRg', Helvetica, Arial, sans-serif;
-	font-weight: normal;
+	font-family: 'league_gothicregular', Helvetica, Arial, sans-serif;
 	line-height: 0.9em;
 	font-size: 11em;
-	margin: 0;
+	letter-spacing: 0.002em;
+	text-align: center;
+}
+
+svg {
+	margin-bottom: 6em;
 }
 
 .triangles {
@@ -142,7 +145,11 @@ h1 {
 }
 
 .color-row {
-	margin-left: 25%;
+	margin-left: 12%;
+}
+
+.color-row h2 {
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
 }
 
 input {
@@ -154,6 +161,7 @@ input {
 	border-radius: 0;
 	color: #a39f9b;
 	margin-bottom: 25px;
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
 }
 
 input:focus{
@@ -180,20 +188,42 @@ textarea {
 }
 
 .sass-output{
+	display: inline;
 	font-size: 2em;
+	word-wrap: break-word;
+}
+
+.dark {
+	color: #a39f9b;
 }
 
 .color-form {
 	position: absolute;
 }
 
-::-webkit-input-placeholder { color: #bcb7b3; }
-:-moz-placeholder { color: #bcb7b3; }
-::-moz-placeholder { color: #bcb7b3; }
-:-ms-input-placeholder { color: #bcb7b3; }
+.output {
+	margin-top: 30px;
+}
+
+::-webkit-input-placeholder {
+	color: #bcb7b3;
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+:-moz-placeholder {
+	color: #bcb7b3;
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+::-moz-placeholder {
+	color: #bcb7b3;
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+:-ms-input-placeholder {
+	color: #bcb7b3;
+	font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
 
 .left-side {
-	top: 16%;
+	top: 10%;
 	width: 40%;
 }
 
