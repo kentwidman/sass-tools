@@ -7,11 +7,14 @@ var app = {
 var Color = net.brehaut.Color;
 
 function roundFraction(value, digits){
+	'use strict';
 	var num = Number(value);
 	return num.toFixed(digits);
 }
 
 function displayColors(color1, color2){
+	'use strict';
+
 	//console.log(color1, color2);
 	var out = color1.toCSS(),
 		count = 0,
@@ -67,13 +70,15 @@ function displayColors(color1, color2){
 }
 
 function stringToArray(str){
-	var points_str = str.split(" ");
+	'use strict';
+
+	var pointsStr = str.split(' ');
 	var points = [],
 			i,
 			j;
 
-	for (i=0; i < points_str.length; i++){
-		points.push(points_str[i].split(","));
+	for (i=0; i < pointsStr.length; i++){
+		points.push(pointsStr[i].split(','));
 	}
 
 	for (i=0; i < points.length; i++){
@@ -86,38 +91,44 @@ function stringToArray(str){
 
 
 function arrayToString(arr){
-	var points_str = "";
+	'use strict';
+
+	var pointsStr = '';
 
 	for (var i=0; i < arr.length; i++) {
-		points_str += arr[i][0].toString() + "," + arr[i][1].toString() + " ";
+		pointsStr += arr[i][0].toString() + ',' + arr[i][1].toString() + ' ';
 	}
-	return points_str;
+	return pointsStr;
 }
 
 function cleanStr(arr){
+	'use strict';
+
 	var out = arr;
 	out = out.replace(/^\s+|\s+$/g, '');
-	out = out.replace("#","");
+	out = out.replace('#','');
 	out = out.toLowerCase();
 	return out;
 }
 
-function is_valid_color(color){
-	return /^[a-f0-9]{3}$|^[a-f0-9]{6}$/i.test(color);
+function isValidColor(color){
+	'use strict';
+	return '/^[a-f0-9]{3}$|^[a-f0-9]{6}$/i'.test(color);
 }
 
 /* resize */
 $(document).ready(function() {
+	'use strict';
 	var $window = $(window),
 		colors = {},
 		tri1 = $('#tri1'),
 		tri2 = $('#tri2'),
-		tri1_points_str = tri1.attr('points'),
-		tri2_points_str = tri2.attr('points'),
+		tri1_pointsStr = tri1.attr('points'),
+		tri2_pointsStr = tri2.attr('points'),
 		tri1_color = tri1.attr('fill'),
 		tri2_color = tri2.attr('fill'),
-		tri1_points = stringToArray(tri1_points_str),
-		tri2_points = stringToArray(tri2_points_str),
+		tri1_points = stringToArray(tri1_pointsStr),
+		tri2_points = stringToArray(tri2_pointsStr),
 		tri1_def_color = 'F26531',
 		tri2_def_color = '1A1A1A';
 
@@ -127,7 +138,7 @@ $(document).ready(function() {
 			id = $this.attr('id'),
 			val = cleanStr($this.val());
 
-		if (is_valid_color(val)){
+		if (isValidColor(val)){
 			colors[id] = Color('#'+cleanStr(val));
 			if (id === 'color1') tri1.attr('fill', '#'+val);
 			else if (id === 'color2') tri2.attr('fill', '#'+val);
@@ -175,8 +186,8 @@ $(document).ready(function() {
     } else { //portrait mode
 		//triangle 1
 		tri1_points[0][0] = 0;
-		tri1_points[0][1] = h * 0.45;
-		tri1_points[1][0] = w * 0.2;
+		tri1_points[0][1] = h * 0.62;
+		tri1_points[1][0] = w * 0.15;
 		tri1_points[1][1] = h;
 		tri1_points[2][0] = w;
 		tri1_points[2][1] = h;
