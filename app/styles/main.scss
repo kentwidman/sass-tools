@@ -50,8 +50,10 @@ body {
 hr {
     display: block;
     height: 1px;
-    border: 0;
     border-top: 1px solid #ccc;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
     margin: 1em 0;
     padding: 0;
 }
@@ -230,22 +232,6 @@ textarea {
     width: 40%;
 }
 
-.upper h1{
-    margin: 0.8em auto;
-    padding-bottom: 12%;
-    background-image: url('../images/sass-color-converter-upper.svg');
-}
-
-.upper .color-form {
-    position: relative;
-    width: 100%;
-}
-
-.upper .color-row {
-    margin: 0 auto;
-    width: 80%;
-}
-
 input {
     font-size: 2em;
 }
@@ -384,15 +370,25 @@ input {
 
 /* Small Break Point ----------- */
 @media only screen and (max-width: 768px) {
+
+    h1{
+        margin: 0.8em auto;
+        padding-bottom: 12%;
+        background-image: url('../images/sass-color-converter-upper.svg');
+    }
+
+    .color-form {
+        position: relative;
+        width: 100%;
+    }
+
+    .color-row {
+        margin: 0 auto;
+        width: 80%;
+    }
+
     input {
         text-align: center;
-    }
-}
-
-/* Smaller Break Point ----------- */
-
-@media only screen and (max-width: 500px) {
-    input {
         font-size: 1.2em;
         border-bottom: 3px solid #bcb7b3;
         width: 47%;
@@ -401,6 +397,11 @@ input {
     input:first-of-type {
         margin-right: 4%;
     }
+}
+
+/* Smaller Break Point ----------- */
+
+@media only screen and (max-width: 500px) {
     .sass-output {
         font-size: 1.2em;
     }
