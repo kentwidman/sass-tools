@@ -113,7 +113,7 @@ function cleanStr(arr){
 
 function isValidColor(color){
 	'use strict';
-	return '/^[a-f0-9]{3}$|^[a-f0-9]{6}$/i'.test(color);
+	return /^[a-f0-9]{3}$|^[a-f0-9]{6}$/i.test(color);
 }
 
 /* resize */
