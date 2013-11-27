@@ -1,4 +1,4 @@
-/*global net */
+/*global net, Modernizr */
 var app = {
 	contants: {
 		hthreshold: 0.001,
@@ -164,32 +164,12 @@ $(document).ready(function() {
 
 	$(window).bind('resize', function(){
 
-	    var h = $window.height();
-	    var w = $window.width();
+		var h = $window.height(),
+			w = $window.width();
 
-	    //landscape mode
-	    if (w > h * 1.1 ) {
-			//triangle 1
-			tri1Points[0][0] = w * 0.47;
-			tri1Points[0][1] = h * (432/803);
-			tri1Points[1][0] = w;
-			tri1Points[1][1] = h * (8/803);
-			tri1Points[2][0] = w;
-			tri1Points[2][1] = h * 0.8;
+		//landscape mode
+		if (Modernizr.mq('only all and (max-width: 768px)')) {
 
-			//triangle 2
-			tri2Points[0][0] = w * 0.6;
-			tri2Points[0][1] = h;
-			tri2Points[1][0] = w * 0.7;
-			tri2Points[1][1] = h * (46/800);
-			tri2Points[2][0] = w;
-			tri2Points[2][1] = h * (514/800);
-			tri2Points[3][0] = w;
-			tri2Points[3][1] = h;
-
-			$('.js-color-form').removeClass('upper').addClass('left-side');
-
-	    } else { //portrait mode
 			//triangle 1
 			tri1Points[0][0] = 0;
 			tri1Points[0][1] = h * 0.62;
@@ -209,14 +189,36 @@ $(document).ready(function() {
 			tri2Points[3][1] = h;
 
 			$('.js-color-form').removeClass('left-side').addClass('upper');
-	    }
+
+		} else {
+
+			//triangle 1
+			tri1Points[0][0] = w * 0.47;
+			tri1Points[0][1] = h * (432/803);
+			tri1Points[1][0] = w;
+			tri1Points[1][1] = h * (8/803);
+			tri1Points[2][0] = w;
+			tri1Points[2][1] = h * 0.8;
+
+			//triangle 2
+			tri2Points[0][0] = w * 0.6;
+			tri2Points[0][1] = h;
+			tri2Points[1][0] = w * 0.7;
+			tri2Points[1][1] = h * (46/800);
+			tri2Points[2][0] = w;
+			tri2Points[2][1] = h * (514/800);
+			tri2Points[3][0] = w;
+			tri2Points[3][1] = h;
+
+			$('.js-color-form').removeClass('upper').addClass('left-side');
+		}
 
 
-	    var tri1String = arrayToString(tri1Points),
+		var tri1String = arrayToString(tri1Points),
 			tri2String = arrayToString(tri2Points);
 
-	    tri1.attr('points', tri1String);
-	    tri2.attr('points', tri2String);
+		tri1.attr('points', tri1String);
+		tri2.attr('points', tri2String);
 
 	}).trigger('resize');
 });
