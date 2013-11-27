@@ -84,6 +84,11 @@ textarea {
     resize: vertical;
 }
 
+a {
+    color: #bcb7b3;
+    text-decoration: none;
+}
+
 /* ==========================================================================
    Chrome Frame prompt
    ========================================================================== */
@@ -228,12 +233,35 @@ textarea {
 }
 
 .left-side {
-    top: 10%;
+    top: 7%;
     width: 40%;
 }
 
 input {
     font-size: 2em;
+}
+
+.about-link {
+    display: block;
+    position: absolute;
+}
+
+
+/* About Us Section*/
+.about-us {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 100px;
+    a {
+        color: #F26531;
+        -webkit-transition: color 250ms ease-in;
+        -moz-transition: color 250ms ease-in;
+        -o-transition: color 250ms ease-in;
+        transition: color 250ms ease-in;
+        &:hover {
+            color: darken(#F26531, 8%);
+        }
+    }
 }
 
 /* ==========================================================================
