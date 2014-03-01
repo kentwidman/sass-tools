@@ -6,7 +6,14 @@
 				threshold: 0.001
 			}
 		},
-		Color = net.brehaut.Color;
+		$window = $(window),
+		Color = net.brehaut.Color,
+		$tris,
+		triPoints,
+		tri1DefColor = 'F26531',
+		tri2DefColor = '1A1A1A',
+		colors = {};
+
 
 	//helper functions
 	function roundFraction(value, digits){
@@ -115,73 +122,73 @@
 		if (Modernizr.mq('only all and (max-width: 768px)')) {
 
 			//triangle 1
-			tri1Points[0][0] = 0;
-			tri1Points[0][1] = h * 0.62;
-			tri1Points[1][0] = w * 0.15;
-			tri1Points[1][1] = h;
-			tri1Points[2][0] = w;
-			tri1Points[2][1] = h;
+			triPoints[0][0][0] = 0;
+			triPoints[0][0][1] = h * 0.62;
+			triPoints[0][1][0] = w * 0.15;
+			triPoints[0][1][1] = h;
+			triPoints[0][2][0] = w;
+			triPoints[0][2][1] = h;
 
 			//triangle 2
-			tri2Points[0][0] = w;
-			tri2Points[0][1] = h * 0.6;
-			tri2Points[1][0] = w;
-			tri2Points[1][1] = h;
-			tri2Points[2][0] = w;
-			tri2Points[2][1] = h;
-			tri2Points[3][0] = 0;
-			tri2Points[3][1] = h;
+			triPoints[1][0][0] = w;
+			triPoints[1][0][1] = h * 0.6;
+			triPoints[1][1][0] = w;
+			triPoints[1][1][1] = h;
+			triPoints[1][2][0] = w;
+			triPoints[1][2][1] = h;
+			triPoints[1][3][0] = 0;
+			triPoints[1][3][1] = h;
 
 			$('.js-color-form').removeClass('left-side').addClass('upper');
 
 		} else {
 
 			//triangle 1
-			tri1Points[0][0] = w * 0.47;
-			tri1Points[0][1] = h * (432/803);
-			tri1Points[1][0] = w;
-			tri1Points[1][1] = h * (8/803);
-			tri1Points[2][0] = w;
-			tri1Points[2][1] = h * 0.8;
+			triPoints[0][0][0] = w * 0.47;
+			triPoints[0][0][1] = h * (432/803);
+			triPoints[0][1][0] = w;
+			triPoints[0][1][1] = h * (8/803);
+			triPoints[0][2][0] = w;
+			triPoints[0][2][1] = h * 0.8;
 
 			//triangle 2
-			tri2Points[0][0] = w * 0.6;
-			tri2Points[0][1] = h;
-			tri2Points[1][0] = w * 0.7;
-			tri2Points[1][1] = h * (46/800);
-			tri2Points[2][0] = w;
-			tri2Points[2][1] = h * (514/800);
-			tri2Points[3][0] = w;
-			tri2Points[3][1] = h;
+			triPoints[1][0][0] = w * 0.6;
+			triPoints[1][0][1] = h;
+			triPoints[1][1][0] = w * 0.7;
+			triPoints[1][1][1] = h * (46/800);
+			triPoints[1][2][0] = w;
+			triPoints[1][2][1] = h * (514/800);
+			triPoints[1][3][0] = w;
+			triPoints[1][3][1] = h;
 
 			$('.js-color-form').removeClass('upper').addClass('left-side');
 		}
 
 
-		var tri1String = arrayToString(tri1Points),
-			tri2String = arrayToString(tri2Points);
+		var tri1String = arrayToString(triPoints[0]),
+			tri2String = arrayToString(triPoints[1]);
 
-		tri1.attr('points', tri1String);
-		tri2.attr('points', tri2String);
+		$tris[0].attr('points', tri1String);
+		$tris[1].attr('points', tri2String);
 	}
 
 	/* resize */
 	$(document).ready(function() {
 		'use strict';
 
+		//setup fit text
 		$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '95px' });
 
-		var $window = $(window),
-			colors = {},
-			$tris = [$('#tri1'), $('#tri2')],
-			triPointsStr = [tri1.attr('points'), tri2.attr('points')];
 
-		triPoints = [stringToArray(triPointsStr[0]), stringToArray(stringToArray(triPointsStr[0])];
-		tri1Points = stringToArray(tri1PointsStr);
-		tri2Points = stringToArray(tri2PointsStr);
-		tri1DefColor = 'F26531';
-		tri2DefColor = '1A1A1A';
+		//setup triangle code.
+		$tris = [$('#tri1'), $('#tri2')];
 
+		//set up triangle points points
+		var triPointsStr = [$tris[0].attr('points'), $tris[1].attr('points')];
+		triPoints = [
+			stringToArray(triPointsStr[0]),
+			stringToArray(triPointsStr[1])
+		];
 
 		$('#color1, #color2').on('input', function(){
 			var $this = $(this),
