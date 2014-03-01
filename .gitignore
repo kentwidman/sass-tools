@@ -2,5 +2,5 @@ node_modules
 dist
 .tmp
 .sass-cache
-config.rb
 app/bower_components
+test/bower_components
