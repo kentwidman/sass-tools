@@ -249,9 +249,17 @@ input {
 
 /* About Us Section*/
 .about-us {
-    width: 80%;
     margin: 0 auto;
-    font-size: 100px;
+    max-width: 1680px;
+    width: 100%;
+    p {
+        display: block;
+        margin: 0 auto;
+        margin: 5% auto 5%;
+        width: 95%;
+        text-align: center;
+
+    }
     a {
         color: #F26531;
         -webkit-transition: color 250ms ease-in;
