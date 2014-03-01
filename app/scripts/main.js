@@ -119,6 +119,9 @@ function isValidColor(color){
 /* resize */
 $(document).ready(function() {
 	'use strict';
+
+	$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '95px' });
+
 	var $window = $(window),
 		colors = {},
 		tri1 = $('#tri1'),
@@ -221,6 +224,7 @@ $(document).ready(function() {
 		tri2.attr('points', tri2String);
 
 	}).trigger('resize');
+
 });
 
 
