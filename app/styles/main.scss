@@ -102,19 +102,28 @@ a {
    Author's custom styles
    ========================================================================== */
 
-html {
+html, body {
     height: 100%;
     width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html {
     background-color: #f8efe7;
     color: #bcb7b3;
 }
 
 body {
-    height: 100%;
-    width: 100%;
     /*overflow: hidden;*/
     position: relative;
     font-family: 'museo_slab500', Helvetica, Arial, sans-serif;
+}
+
+canvas {
+    height: 100%;
+    width: 100%;
+    position: fixed;
 }
 
 h1 {
