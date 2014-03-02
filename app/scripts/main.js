@@ -1,43 +1,51 @@
 /*global net, Modernizr */
-
-
-// requestAnim shim layer by Paul Irish
-window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       || 
-          window.webkitRequestAnimationFrame || 
-          window.mozRequestAnimationFrame    || 
-          window.oRequestAnimationFrame      || 
-          window.msRequestAnimationFrame     || 
-          function(/* function */ callback, /* DOMElement */ element){
-            window.setTimeout(callback, 1000 / 60);
-          };
-})();
-
-
-
 (function(){
 	var app = {
-			settings: {
+			contants: {
 				hthreshold: 0.001,
-				threshold: 0.001,
-				defaultColors: ['F26531', '1A1A1A'],
-			},
-			windowWidth: 0,
-			windowHeight: 0
+				threshold: 0.001
+			}
 		},
 		$window = $(window),
-		Color = net.brehaut.Color, //color class.
-		canvas,
-		triPoints = [[[],[],[]],[[],[],[],[]]],
-		triColors = app.settings.defaultColors,
-		colors = {},
-		startTime = new Date().getTime();
+		Color = net.brehaut.Color,
+		$tris,
+		triPoints,
+		tri1DefColor = 'F26531',
+		tri2DefColor = '1A1A1A',
+		colors = {};
 
 
 	//helper functions
 	function roundFraction(value, digits){
 		var num = Number(value);
 		return num.toFixed(digits);
+	}
+
+	function stringToArray(str){
+		var pointsStr = str.split(' ');
+		var points = [],
+			i,
+			j;
+
+		for (i=0; i < pointsStr.length; i++){
+			points.push(pointsStr[i].split(','));
+		}
+
+		for (i=0; i < points.length; i++){
+			for (j=0; j < 2; j++){
+				points[i][j] = parseInt(points[i][j], 10);
+			}
+		}
+		return points;
+	}
+
+	function arrayToString(arr){
+		var pointsStr = '';
+
+		for (var i=0; i < arr.length; i++) {
+			pointsStr += arr[i][0].toString() + ',' + arr[i][1].toString() + ' ';
+		}
+		return pointsStr;
 	}
 
 	function cleanStr(arr){
@@ -106,59 +114,9 @@ window.requestAnimFrame = (function(){
 		return out;
 	}
 
-	function clear_screan(){
-	    if (canvas.getContext){
-	        var ctx = canvas.getContext('2d');
-			ctx.clearRect(0, 0, app.windowWidth, app.windowHeight);
-		}
-	}
-
-	function drawPoly(points, color) {
-	    if (canvas.getContext){
-	        var ctx = canvas.getContext('2d');
-
-	        ctx.beginPath();
-	        ctx.moveTo(points[points.length-1][0], points[points.length-1][0]);
-	        for(var i = 0; i < points.length; i++){
-	        	ctx.lineTo(points[i][0], points[i][1]);
-	        }
-	        
-	        ctx.fillStyle = color;
-	        ctx.fill();   
-	    }
-	}
-
-
-	function render(){
-		var time = new Date().getTime() - startTime;
-
-		var x = ((time * 0.1) % 200);
-		clear_screan();
-		triPoints[0][0][0]
-		drawPoly(
-			triPoints[0],
-			triColors[0]
-		);
-		drawPoly(
-			triPoints[1],
-			triColors[1]
-		);
-		//draw_triangle('410','48', x.toString(),'86','420','135', triColors[1]);
-	}
-
-	function animloop(){
-	  requestAnimFrame(animloop);
-	  render();
-	}
-
-	function resizeCanvas(){
-		//get screen size;
-		var w = $(window).width(),
-			h = $(window).height();
-		app.windowWidth = w;
-		app.windowHeight = h;
-		canvas.width = w;
-		canvas.height = h;
+	function resizeSvg(){
+		var h = $window.height(),
+			w = $window.width();
 
 		//landscape mode
 		if (Modernizr.mq('only all and (max-width: 768px)')) {
@@ -206,9 +164,13 @@ window.requestAnimFrame = (function(){
 			$('.js-color-form').removeClass('upper').addClass('left-side');
 		}
 
-		animloop();
-	}
 
+		var tri1String = arrayToString(triPoints[0]),
+			tri2String = arrayToString(triPoints[1]);
+
+		$tris[0].attr('points', tri1String);
+		$tris[1].attr('points', tri2String);
+	}
 
 	/* resize */
 	$(document).ready(function() {
@@ -217,26 +179,41 @@ window.requestAnimFrame = (function(){
 		//setup fit text
 		$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '95px' });
 
+		//set up triangle code.
+		$tris = [$('#tri1'), $('#tri2')];
 
-		//setup triangle code.
-		canvas = document.getElementById('triangles');
+		//set up triangle points points
+		var triPointsStr = [$tris[0].attr('points'), $tris[1].attr('points')];
+		triPoints = [
+			stringToArray(triPointsStr[0]),
+			stringToArray(triPointsStr[1])
+		];
 
 		$('#color1, #color2').on('input', function(){
 			var $this = $(this),
 				validIds = ['color1','color2'],
-				id = parseInt($this.attr('id').substring(4)) - 1,
+				id = $this.attr('id'),
 				val = cleanStr($this.val());
 
 			//check to make sure input is a valid color.
 			if (isValidColor(val)){
 				//update color
-				colors[id] = new Color('#'+val);
-				triColors[id] = val;		
+				colors[id] = new Color('#'+cleanStr(val));
+				for (var i = 0; i < $tris.length; i++) {
+					if (id === validIds[i]) {
+						$tris[i].attr('fill', '#'+val);
+						break;
+					}
+				}
 			} else {
 				//revert to default color
 				delete colors[id];
-				//$tris[id].attr('fill', '#'+app.settings.defaultColors[id]);
-				triColors[id] = val;
+				for (var i = 0; i < $tris.length; i++){
+					if (id === validIds[i]) {
+						$tris[i].attr('fill', '#'+tri1DefColor);
+						break;
+					}
+				}
 			}
 
 			if (colors.color1 && colors.color2) {
@@ -247,7 +224,7 @@ window.requestAnimFrame = (function(){
 		});
 
 
-		$(window).bind('resize', resizeCanvas).trigger('resize');
+		$(window).bind('resize', resizeSvg).trigger('resize');
 
 	});
 })();
