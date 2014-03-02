@@ -176,11 +176,10 @@
 	$(document).ready(function() {
 		'use strict';
 
-		//setup fit text
-		$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '95px' });
+		//set up fit text
+		$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '92px' });
 
-
-		//setup triangle code.
+		//set up triangle code.
 		$tris = [$('#tri1'), $('#tri2')];
 
 		//set up triangle points points
