@@ -1,51 +1,46 @@
-/*global net, Modernizr */
+/*global net, Modernizr, requestAnimFrame */
+
+
+// requestAnim shim layer by Paul Irish
+window.requestAnimFrame = (function(){
+	'use strict';
+	return  window.requestAnimationFrame       ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame    ||
+			window.oRequestAnimationFrame      ||
+			window.msRequestAnimationFrame     ||
+			function(callback /*, element*/){
+				window.setTimeout(callback, 1000 / 60);
+			};
+})();
+
+var ga = function(){
+	'use strict';
+};
+
 (function(){
+	'use strict';
 	var app = {
-			contants: {
+			settings: {
 				hthreshold: 0.001,
-				threshold: 0.001
-			}
+				threshold: 0.001,
+				defaultColors: ['#F26531', '#1A1A1A'],
+			},
+			windowWidth: 0,
+			windowHeight: 0
 		},
 		$window = $(window),
-		Color = net.brehaut.Color,
-		$tris,
+		Color = net.brehaut.Color, //color class.
+		canvas,
 		triPoints,
-		tri1DefColor = 'F26531',
-		tri2DefColor = '1A1A1A',
+		triColors = app.settings.defaultColors.slice(0), //deap copy
 		colors = {};
-
+		//startTime = new Date().getTime();
 
 	//helper functions
 	function roundFraction(value, digits){
 		var num = Number(value);
 		return num.toFixed(digits);
-	}
-
-	function stringToArray(str){
-		var pointsStr = str.split(' ');
-		var points = [],
-			i,
-			j;
-
-		for (i=0; i < pointsStr.length; i++){
-			points.push(pointsStr[i].split(','));
-		}
-
-		for (i=0; i < points.length; i++){
-			for (j=0; j < 2; j++){
-				points[i][j] = parseInt(points[i][j], 10);
-			}
-		}
-		return points;
-	}
-
-	function arrayToString(arr){
-		var pointsStr = '';
-
-		for (var i=0; i < arr.length; i++) {
-			pointsStr += arr[i][0].toString() + ',' + arr[i][1].toString() + ' ';
-		}
-		return pointsStr;
 	}
 
 	function cleanStr(arr){
@@ -61,7 +56,6 @@
 	}
 
 	function displayColors(color1, color2){
-		//console.log(color1, color2);
 		var out = color1.toCSS(),
 			amount = 0,
 			c1 = {
@@ -80,13 +74,13 @@
 				l: c2.l - c1.l
 			};
 
-		if (diff.h > app.contants.hthreshold || diff.h < -app.contants.hthreshold){
+		if (diff.h > app.settings.hthreshold || diff.h < -app.settings.hthreshold){
 			amount = diff.h;
 			amount = roundFraction(amount, 0);
 			out = 'adjust-hue(' + out + ', ' + amount + 'deg)';
 		}
 
-		if (diff.s > app.contants.threshold || diff.s < -app.contants.threshold){
+		if (diff.s > app.settings.threshold || diff.s < -app.settings.threshold){
 			if (diff.s > 0){
 				amount = (diff.s ) * 100;
 				amount = roundFraction(amount, 1);
@@ -98,7 +92,7 @@
 			}
 		}
 
-		if (diff.l > app.contants.threshold || diff.l < -app.contants.threshold){
+		if (diff.l > app.settings.threshold || diff.l < -app.settings.threshold){
 			if (diff.l > 0){
 				amount = (diff.l) * 100;
 				amount = roundFraction(amount, 1);
@@ -114,12 +108,59 @@
 		return out;
 	}
 
-	function resizeSvg(){
-		var h = $window.height(),
-			w = $window.width();
+	function clearScrean(){
+	    if (canvas.getContext){
+	        var ctx = canvas.getContext('2d');
+			ctx.clearRect(0, 0, app.windowWidth, app.windowHeight);
+		}
+	}
+
+	function drawPoly(points, color) {
+	    if (canvas.getContext){
+	        var ctx = canvas.getContext('2d');
+	        ctx.fillStyle = color;
+	        ctx.beginPath();
+	        ctx.moveTo(points[0][0], points[0][1]);
+	        for(var i = 1; i < points.length; i++){
+				ctx.lineTo(points[i][0], points[i][1]);
+	        }
+	        ctx.closePath();
+	        ctx.fill();
+	    }
+	}
+
+
+	function render(){
+		//var time = new Date().getTime() - startTime;
+		//var x = ((time * 0.1) % 200);
+		clearScrean();
+		drawPoly(
+			triPoints[0],
+			triColors[0]
+		);
+		drawPoly(
+			triPoints[1],
+			triColors[1]
+		);
+	}
+
+	function animloop(){
+		requestAnimFrame(animloop);
+		render();
+	}
+
+	function resizeCanvas(){
+		//get screen size;
+		var w = $window.width(),
+			h = $window.height();
+		app.windowWidth = w;
+		app.windowHeight = h;
+		canvas.width = w;
+		canvas.height = h;
 
 		//landscape mode
 		if (Modernizr.mq('only all and (max-width: 768px)')) {
+			triPoints = [[[],[],[]],[[],[],[]]];
 
 			//triangle 1
 			triPoints[0][0][0] = 0;
@@ -134,14 +175,13 @@
 			triPoints[1][0][1] = h * 0.6;
 			triPoints[1][1][0] = w;
 			triPoints[1][1][1] = h;
-			triPoints[1][2][0] = w;
+			triPoints[1][2][0] = 0;
 			triPoints[1][2][1] = h;
-			triPoints[1][3][0] = 0;
-			triPoints[1][3][1] = h;
 
 			$('.js-color-form').removeClass('left-side').addClass('upper');
 
 		} else {
+			triPoints = [[[],[],[]],[[],[],[],[]]];
 
 			//triangle 1
 			triPoints[0][0][0] = w * 0.47;
@@ -163,68 +203,44 @@
 
 			$('.js-color-form').removeClass('upper').addClass('left-side');
 		}
-
-
-		var tri1String = arrayToString(triPoints[0]),
-			tri2String = arrayToString(triPoints[1]);
-
-		$tris[0].attr('points', tri1String);
-		$tris[1].attr('points', tri2String);
 	}
+
 
 	/* resize */
 	$(document).ready(function() {
-		'use strict';
+		//set up fit text
+		$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '92px' });
 
-		//setup fit text
-		$('#about').fitText(1, { minFontSize: '25px', maxFontSize: '95px' });
-
-		//set up triangle code.
-		$tris = [$('#tri1'), $('#tri2')];
-
-		//set up triangle points points
-		var triPointsStr = [$tris[0].attr('points'), $tris[1].attr('points')];
-		triPoints = [
-			stringToArray(triPointsStr[0]),
-			stringToArray(triPointsStr[1])
-		];
+		//setup triangle code.
+		canvas = document.getElementById('triangles');
 
 		$('#color1, #color2').on('input', function(){
 			var $this = $(this),
-				validIds = ['color1','color2'],
-				id = $this.attr('id'),
+				id = parseInt($this.attr('id').substring(5)) - 1,
 				val = cleanStr($this.val());
 
 			//check to make sure input is a valid color.
 			if (isValidColor(val)){
 				//update color
-				colors[id] = new Color('#'+cleanStr(val));
-				for (var i = 0; i < $tris.length; i++) {
-					if (id === validIds[i]) {
-						$tris[i].attr('fill', '#'+val);
-						break;
-					}
-				}
+				colors[id] = new Color('#'+val);
+				triColors[id] = '#' + val;
+
+				ga('send', 'event', 'color', 'type', '#' + val);
 			} else {
 				//revert to default color
 				delete colors[id];
-				for (var i = 0; i < $tris.length; i++){
-					if (id === validIds[i]) {
-						$tris[i].attr('fill', '#'+tri1DefColor);
-						break;
-					}
-				}
+				triColors[id] = app.settings.defaultColors[id];
 			}
 
-			if (colors.color1 && colors.color2) {
-				$('#sass-output').html(displayColors(colors.color1, colors.color2));
+			if (colors[0] && colors[1]) {
+				$('#sass-output').html(displayColors(colors[0], colors[1]));
 			} else {
 				$('#sass-output').html('');
 			}
 		});
 
+		$(window).bind('resize', resizeCanvas).trigger('resize');
 
-		$(window).bind('resize', resizeSvg).trigger('resize');
-
+		animloop();
 	});
 })();

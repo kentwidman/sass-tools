@@ -491,6 +491,7 @@ AddDefaultCharset utf-8
     #  as `AddOutputFilterByType` is still in the core directives).
     <IfModule mod_filter.c>
         AddOutputFilterByType DEFLATE application/atom+xml \
+                                      application/font-woff \
                                       application/javascript \
                                       application/json \
                                       application/rss+xml \
@@ -587,11 +588,11 @@ FileETag None
     ExpiresByType application/rss+xml                   "access plus 1 hour"
 
   # Web fonts
-    ExpiresByType application/font-woff                 "access plus 1 month"
-    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
-    ExpiresByType application/x-font-ttf                "access plus 1 month"
-    ExpiresByType font/opentype                         "access plus 1 month"
-    ExpiresByType image/svg+xml                         "access plus 1 month"
+    ExpiresByType application/font-woff                 "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 year"
+    ExpiresByType application/x-font-ttf                "access plus 1 year"
+    ExpiresByType font/opentype                         "access plus 1 year"
+    ExpiresByType image/svg+xml                         "access plus 1 year"
 
 </IfModule>
 

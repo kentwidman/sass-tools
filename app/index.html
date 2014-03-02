@@ -6,15 +6,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>sasstools yo</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <title>Sass Toolkit | Sass Color Converter</title>
+        <meta name="description" content="Take the guesswork out of converting a hex code into a Sass color function using the Sass Color Converter.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta property="og:title" content="Sass Color Converter">
+        <meta property="og:description" content="ake the guesswork out of converting a hex code into a Sass color function using the Sass Color Converter.">
+        <meta property="og:site_name" content="Sass Toolkit"/>
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://sasstoolkit.com">
+        <meta property="og:image" content="http://sasstoolkit.com/images/logo-og.png">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-
+        <link rel="stylesheet" href="styles/ss-standard.css">
         <!-- endbower -->
         <!-- endbuild -->
+        
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
@@ -26,44 +33,46 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+
     <section id="picker" class="picker">
         <a href="about.html" class="navigate-to-about"><span class="ss-icon">&#x2139;</span></a>
-		<canvas id="triangles" width="0" height="0"></canvas>
-		  <div class="js-color-form color-form">
+        <canvas id="triangles" width="0" height="0"></canvas>
+		<div class="js-color-form color-form">
             <div class="color-row">
                 <h1 class="logo ir-logo">Sass Color Converter</h1>
                 <input type="text" id="color1" name="color1" class="colorpicker" value="" placeholder="start #color" maxlength="7" autocorrect="off" autocapitalize="off"/>
                 <input type="text" id="color2" name="color2" class="colorpicker" value="" placeholder="end #color" maxlength="7" autocorrect="off" autocapitalize="off"/>
             </div>
             <div class="color-row output">
-                <p class="sass-output dark">Sass Output: </p>
+                <p class="sass-output-title dark">Sass Output: </p>
                 <p id="sass-output" class="sass-output"></p>
             </div>
         </div>
     </section>
 
 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="scripts/vendor/helper.js"></script>
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="scripts/vendor/jquery.fittext.js"></script>
-        <script src="scripts/vendor/color.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="scripts/vendor/helper.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="scripts/vendor/jquery.fittext.js"></script>
+    <script src="scripts/vendor/color.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
-        <!-- endbuild -->
+      ga('create', 'UA-48574608-1', 'sasstoolkit.com');
+      ga('send', 'pageview');
+
+    </script>
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

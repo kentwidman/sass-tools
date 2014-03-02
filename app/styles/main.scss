@@ -1,5 +1,4 @@
 @import "fonts";
-@import "ss-standard";
 
 /*
  * HTML5 Boilerplate
@@ -104,10 +103,10 @@ a {
    ========================================================================== */
 
 html, body {
-    height: 100%;
-    width: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
 html {
@@ -149,7 +148,7 @@ body {
 
 
 .navigate-to-about {
-    position: absolute;
+    position: fixed;
     right: 30px;
     bottom: 30px;
     z-index: 100;
@@ -159,8 +158,8 @@ body {
 
 .navigate-to-picker {
     position: absolute;
-    left: 30px;
     top: 30px;
+    left: 30px;
     font-size: 25px;
 }
 
@@ -177,9 +176,9 @@ h1 {
 }
 
 canvas {
-    height: 100%;
-    width: 100%;
     position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 .triangles {
@@ -249,8 +248,15 @@ textarea {
     text-shadow: none;
 }
 
+.sass-output-title{
+    display: inline;
+    word-wrap: break-word;
+    font-size: 2em;
+}
+
 .sass-output{
     display: inline;
+    padding-bottom: 38px;
     word-wrap: break-word;
     font-size: 2em;
 }
@@ -462,6 +468,9 @@ input {
 /* Smaller Break Point ----------- */
 
 @media only screen and (max-width: 500px) {
+    .sass-output-title{
+        font-size: 1.2em;
+    }
     .sass-output {
         font-size: 1.2em;
     }
